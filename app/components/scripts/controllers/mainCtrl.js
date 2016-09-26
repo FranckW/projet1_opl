@@ -12,20 +12,27 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices) {
         console.log("repo name : " + pullRequestsData[0].head.repo.name);
         $scope.pullRequests = pullRequestsData;
         $scope.loading = true;
+        getFilesContent();
+    };
+
+    function getFilesContent() {
         githubServices.getContentOfPullRequest($scope.repoName, 1).then(
-                function (filesContentData) {
-                    $scope.files = filesContentData;
-                    console.log($scope.files[1].raw_url);
-                    for (var i = 0; i < $scope.files.length; i++) {
-                        console.log($scope.files[i].raw_url);
-                        githubServices.getFileContent($scope.files[i].raw_url).then(
-                            function (fileContentData) {
-                                $scope.loading = false;
-                                console.log(fileContentData);
-                                $scope.filesContent.push(filesContentData);
-                            });
-                    }
-                 });
+            function (filesContentData) {
+                $scope.files = filesContentData;
+                console.log($scope.files[1].raw_url);
+                for (var i = 0; i < $scope.files.length; i++) {
+                    console.log($scope.files[i].raw_url);
+                    var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
+                    var indexOfRaw = $scope.files[1].raw_url.indexOf('/raw');
+                    var urlGithubContent = urlStart + $scope.files[1].raw_url.substring(indexOfRaw + 4);
+                    githubServices.getFileContent(urlGithubContent).then(
+                        function (fileContentData) {
+                            $scope.loading = false;
+                            console.log(fileContentData);
+                            $scope.filesContent.push(filesContentData);
+                        });
+                }
+            });
     };
 
     $scope.submitUrl = function () {
