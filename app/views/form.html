@@ -1,0 +1,17 @@
+<div class="formContent" ng-controller="MainCtrl">
+    <div class="form-wrapper greyBox">
+        <form class="form-inline" ng-submit="submitUrl()">
+            <div class="form-group">
+                <label for="urlInput">Enter github repository url : </label>
+                <input id="urlInput" type="text" class="form-control" ng-required="true" ng-model="url.value" placeholder="Git repository url ...">
+                <input class="btn btn-primary" type="submit" id="submit" value="Submit" />
+            </div>
+        </form>
+    </div>
+
+    <div loading="loading">
+        <div ng-repeat="file in files">
+            <p>{{file.raw_url}}</p>
+        </div>
+    </div>
+</div>
