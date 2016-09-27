@@ -10,8 +10,11 @@
     </div>
 
     <div loading="loading">
-        <div ng-repeat="fileContent in filesContent">
-            <p>{{fileContent}}</p>
-        </div>
+        <ul>
+        <li ng-repeat="fileContent in filesContent">
+            <p>File name : {{fileContent.filename}}</p> 
+            <pre class="prettyprint">{{fileContent.content}}</pre>
+        </li>
+        </ul>
     </div>
 </div>

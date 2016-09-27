@@ -6,6 +6,7 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices) {
     $scope.pullRequests = {};
     $scope.files = {};
     $scope.filesContent = {};
+    $scope.currentCall = 0;
 
     function updatePullRequests(pullRequestsData) {
         console.log("user : " + pullRequestsData[0].user.login);
@@ -23,13 +24,16 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices) {
                 for (var i = 0; i < $scope.files.length; i++) {
                     console.log($scope.files[i].raw_url);
                     var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
-                    var indexOfRaw = $scope.files[1].raw_url.indexOf('/raw');
-                    var urlGithubContent = urlStart + $scope.files[1].raw_url.substring(indexOfRaw + 4);
+                    var indexOfRaw = $scope.files[i].raw_url.indexOf('/raw');
+                    var urlGithubContent = urlStart + $scope.files[i].raw_url.substring(indexOfRaw + 4);
+                    //$scope.files[i].filename
                     githubServices.getFileContent(urlGithubContent).then(
                         function (fileContentData) {
                             $scope.loading = false;
                             console.log(fileContentData);
-                            $scope.filesContent.push(filesContentData);
+                            var fileInfos = { "filename": $scope.files[$scope.currentCall].filename, "content": fileContentData };
+                            $scope.filesContent[$scope.currentCall] = fileInfos;
+                            $scope.currentCall ++;
                         });
                 }
             });
