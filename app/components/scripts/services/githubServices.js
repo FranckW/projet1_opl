@@ -18,6 +18,7 @@ angular.module('app').service(
         }
 
         function getContentOfPullRequest(repoName, id) {
+            console.log('https://api.github.com/repos/' + repoName + '/pulls/' + id + '/files');
             var request = $http({
                 method: "get",
                 url: 'https://api.github.com/repos/' + repoName + '/pulls/' + id + '/files',

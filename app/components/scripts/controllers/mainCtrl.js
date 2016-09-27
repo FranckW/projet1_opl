@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app').controller('MainCtrl', function ($scope, githubServices) {
+angular.module('app').controller('MainCtrl', function ($scope, githubServices, javaAnalysisServices) {
     $scope.url = {};
     $scope.loading = false;
     $scope.repoName = "";
@@ -18,55 +18,61 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices) {
     };
 
     function getFilesContent() {
-        for(var i = 0; i < $scope.pullRequests.length; i++)
-            githubServices.getContentOfPullRequest($scope.repoName, i+1).then(
+        for (var i = 0; i < $scope.pullRequests.length; i++)
+            githubServices.getContentOfPullRequest($scope.repoName, $scope.pullRequests[i].number).then(
                 function (filesContentData) {
                     $scope.files = filesContentData;
                     for (var j = 0; j < $scope.files.length; j++) {
-                        //console.log($scope.files[j].raw_url);
-                        console.log($scope.files[j].additions);
+                        //console.log("patch : " + $scope.files[j].patch);
                         var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
                         var indexOfRaw = $scope.files[j].raw_url.indexOf('/raw');
                         var urlGithubContent = urlStart + $scope.files[j].raw_url.substring(indexOfRaw + 4);
-                        getFileContent(urlGithubContent);
+                        $scope.loading = true;
+                        githubServices.getFileContent(urlGithubContent).then(
+                            function (fileContentData) {
+                                $scope.loading = false;
+                                var fileInfos = {
+                                    "id": $scope.files[$scope.currentCall].sha,
+                                    "filename": $scope.files[$scope.currentCall].filename,
+                                    "path": $scope.files[$scope.currentCall].path,
+                                    "content": fileContentData,
+                                    "score": 0
+                                };
+                                $scope.filesContent[$scope.currentCall] = fileInfos;
+                                var filename = $scope.filesContent[$scope.currentCall].filename;
+                                if(filename.endsWith(".java"))
+                                javaAnalysisServices.getScoreOfClass(filename, $scope.repoName, $scope.filesContent[$scope.currentCall].id).then(
+                                    function (scoreOfClass) {
+                                        $scope.loading = false;
+                                        $scope.filesContent[scoreOfClass.id].score = scoreOfClass.value;
+                                    });
+                                $scope.currentCall++;
+                            });
                     }
                 });
     };
-
-    function getFileContent(urlGithubContent) {
-        $scope.loading = true;
-        githubServices.getFileContent(urlGithubContent).then(
-            function (fileContentData) {
-                $scope.loading = false;
-                //console.log(fileContentData);
-                var fileInfos = {
-                    "filename": $scope.files[$scope.currentCall].filename,
-                    "path": $scope.files[$scope.currentCall].path,
-                    "content": fileContentData };
-                $scope.filesContent[$scope.currentCall] = fileInfos;
-                $scope.currentCall++;
-            });
-    }
 
     function setOriginalFiles(originalFiles) {
         $scope.originalFiles = originalFiles;
     };
 
+
     $scope.submitUrl = function () {
         $scope.loading = true;
         var githubUrl = 'https://github.com/';
         var urlStart = $scope.url.value.substring(0, githubUrl.length);
-        if(urlStart == githubUrl) {
+        if (urlStart == githubUrl) {
             $scope.repoName = $scope.url.value.substring(githubUrl.length, $scope.url.value.length);
             githubServices.getAllPullRequests($scope.repoName).then(
                 function (pullRequestsData) {
                     $scope.loading = false;
                     updatePullRequests(pullRequestsData);
                 });
+
+            githubServices.getOriginalRepoFiles($scope.repoName).then(
+                function (originalFiles) {
+                    setOriginalFiles(originalFiles);
+                });
         }
-        githubServices.getOriginalRepoFiles($scope.repoName).then(
-            function (originalFiles) {
-                setOriginalFiles(originalFiles);
-            });
     };
 });

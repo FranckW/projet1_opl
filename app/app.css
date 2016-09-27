@@ -5,6 +5,13 @@ body {
     margin: 10px;
 }
 
+.mainPage {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .formContent {
     width: 50%;
     margin: 0 auto; 

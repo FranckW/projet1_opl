@@ -16,6 +16,9 @@
                 <ul>
                     <li ng-repeat="fileContent in filesContent">
                         <p>File name : {{fileContent.filename}}</p>
+                        <p>File path : {{fileContent.path}}</p>
+                        <p>File id : {{fileContent.id}}</p>
+                        <p>File score : {{fileContent.score}}<p>
                         <pre class="prettyprint">{{fileContent.content}}</pre>
                     </li>
                 </ul>
