@@ -44,6 +44,7 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
                                 if (file.filename.endsWith(".java"))
                                     javaAnalysisServices.getScoreOfClass(file.filename, $scope.repoName, file.id).then(
                                         function (scoreOfClass) {
+                                            console.log("youhou callback reçu");
                                             $scope.loading = false;
                                             $scope.filesContent[scoreOfClass.id].score = scoreOfClass.value;
                                         });

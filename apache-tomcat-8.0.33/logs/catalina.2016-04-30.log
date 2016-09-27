@@ -1,0 +1,43 @@
+30-Apr-2016 18:41:31.396 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.0.33
+30-Apr-2016 18:41:31.397 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Mar 18 2016 20:31:49 UTC
+30-Apr-2016 18:41:31.397 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.0.33.0
+30-Apr-2016 18:41:31.397 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+30-Apr-2016 18:41:31.398 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+30-Apr-2016 18:41:31.398 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+30-Apr-2016 18:41:31.398 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jre1.8.0_91
+30-Apr-2016 18:41:31.398 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_91-b14
+30-Apr-2016 18:41:31.398 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+30-Apr-2016 18:41:31.398 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\franc\workspace\apache-tomcat-8.0.33
+30-Apr-2016 18:41:31.399 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Users\franc\workspace\apache-tomcat-8.0.33
+30-Apr-2016 18:41:31.399 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=c:\Users\franc\workspace\apache-tomcat-8.0.33\conf\logging.properties
+30-Apr-2016 18:41:31.399 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+30-Apr-2016 18:41:31.399 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.endorsed.dirs=c:\Users\franc\workspace\apache-tomcat-8.0.33\endorsed
+30-Apr-2016 18:41:31.400 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=c:\Users\franc\workspace\apache-tomcat-8.0.33
+30-Apr-2016 18:41:31.400 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=c:\Users\franc\workspace\apache-tomcat-8.0.33
+30-Apr-2016 18:41:31.400 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=c:\Users\franc\workspace\apache-tomcat-8.0.33\temp
+30-Apr-2016 18:41:31.401 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded APR based Apache Tomcat Native library 1.2.5 using APR version 1.5.1.
+30-Apr-2016 18:41:31.401 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+30-Apr-2016 18:41:31.942 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized (OpenSSL 1.0.2g  1 Mar 2016)
+30-Apr-2016 18:41:32.030 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-apr-8080"]
+30-Apr-2016 18:41:32.041 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-apr-8009"]
+30-Apr-2016 18:41:32.044 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 941 ms
+30-Apr-2016 18:41:32.062 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service Catalina
+30-Apr-2016 18:41:32.062 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.0.33
+30-Apr-2016 18:41:32.070 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\docs
+30-Apr-2016 18:41:32.629 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Apr-2016 18:41:32.714 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\docs has finished in 644 ms
+30-Apr-2016 18:41:32.715 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\examples
+30-Apr-2016 18:41:37.664 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Apr-2016 18:41:37.705 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\examples has finished in 4,991 ms
+30-Apr-2016 18:41:37.705 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\host-manager
+30-Apr-2016 18:41:37.817 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Apr-2016 18:41:37.821 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\host-manager has finished in 116 ms
+30-Apr-2016 18:41:37.821 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\manager
+30-Apr-2016 18:41:37.931 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Apr-2016 18:41:37.934 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\manager has finished in 113 ms
+30-Apr-2016 18:41:37.935 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\ROOT
+30-Apr-2016 18:41:38.076 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Apr-2016 18:41:38.078 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory C:\Users\franc\workspace\apache-tomcat-8.0.33\webapps\ROOT has finished in 143 ms
+30-Apr-2016 18:41:38.081 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-apr-8080"]
+30-Apr-2016 18:41:38.088 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-apr-8009"]
+30-Apr-2016 18:41:38.090 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 6046 ms

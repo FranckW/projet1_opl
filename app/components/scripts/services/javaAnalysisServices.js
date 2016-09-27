@@ -9,8 +9,8 @@ angular.module('app').service(
         function getScoreOfClass(classContent, repoName, id) {
             var request = $http({
                 method: "get",
-                url: 'http://localhost:8080/getScoreOfClass/',
-                data: {
+                url: 'http://localhost:8080/server/getScoreOfClass/',
+                params: {
                     classContent: classContent,
                     repoName: repoName,
                     id: id
