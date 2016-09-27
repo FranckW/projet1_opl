@@ -5,7 +5,8 @@ angular.module('app').service(
         return ({
             getAllPullRequests: getAllPullRequests,
             getContentOfPullRequest: getContentOfPullRequest,
-            getFileContent: getFileContent
+            getFileContent: getFileContent,
+            getOriginalRepoFiles: getOriginalRepoFiles
         });
 
         function getAllPullRequests(repoName) {
@@ -31,6 +32,14 @@ angular.module('app').service(
                     'Accept': 'text/html; charset=utf-8'
                 },
                 url: url
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getOriginalRepoFiles(repoName) {
+            var request = $http({
+                method: "get",
+                url: 'https://api.github.com/repos/' + repoName + '/contents'
             });
             return (request.then(handleSuccess, handleError));
         }
