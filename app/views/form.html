@@ -11,10 +11,14 @@
 
     <div loading="loading">
         <ul>
-        <li ng-repeat="fileContent in filesContent">
-            <p>File name : {{fileContent.filename}}</p> 
-            <pre class="prettyprint">{{fileContent.content}}</pre>
-        </li>
+            <li ng-repeat="pr in pullRequests">
+                <p>Pull request {{pr.number}}</p>
+                <ul>
+                    <li ng-repeat="fileContent in filesContent">
+                        <p>File name : {{fileContent.filename}}</p>
+                        <pre class="prettyprint">{{fileContent.content}}</pre>
+                    </li>
+                </ul>
         </ul>
     </div>
 </div>

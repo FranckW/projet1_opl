@@ -18,29 +18,35 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices) {
     };
 
     function getFilesContent() {
-        githubServices.getContentOfPullRequest($scope.repoName, 1).then(
-            function (filesContentData) {
-                $scope.files = filesContentData;
-                for (var i = 0; i < $scope.files.length; i++) {
-                    //console.log($scope.files[i].raw_url);
-                    console.log($scope.files[i].additions);
-                    var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
-                    var indexOfRaw = $scope.files[i].raw_url.indexOf('/raw');
-                    var urlGithubContent = urlStart + $scope.files[i].raw_url.substring(indexOfRaw + 4);
-                    githubServices.getFileContent(urlGithubContent).then(
-                        function (fileContentData) {
-                            $scope.loading = false;
-                            //console.log(fileContentData);
-                            var fileInfos = {
-                                "filename": $scope.files[$scope.currentCall].filename,
-                                "path": $scope.files[$scope.currentCall].path,
-                                "content": fileContentData };
-                            $scope.filesContent[$scope.currentCall] = fileInfos;
-                            $scope.currentCall++;
-                        });
-                }
-            });
+        for(var i = 0; i < $scope.pullRequests.length; i++)
+            githubServices.getContentOfPullRequest($scope.repoName, i+1).then(
+                function (filesContentData) {
+                    $scope.files = filesContentData;
+                    for (var j = 0; j < $scope.files.length; j++) {
+                        //console.log($scope.files[j].raw_url);
+                        console.log($scope.files[j].additions);
+                        var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
+                        var indexOfRaw = $scope.files[j].raw_url.indexOf('/raw');
+                        var urlGithubContent = urlStart + $scope.files[j].raw_url.substring(indexOfRaw + 4);
+                        getFileContent(urlGithubContent);
+                    }
+                });
     };
+
+    function getFileContent(urlGithubContent) {
+        $scope.loading = true;
+        githubServices.getFileContent(urlGithubContent).then(
+            function (fileContentData) {
+                $scope.loading = false;
+                //console.log(fileContentData);
+                var fileInfos = {
+                    "filename": $scope.files[$scope.currentCall].filename,
+                    "path": $scope.files[$scope.currentCall].path,
+                    "content": fileContentData };
+                $scope.filesContent[$scope.currentCall] = fileInfos;
+                $scope.currentCall++;
+            });
+    }
 
     function setOriginalFiles(originalFiles) {
         $scope.originalFiles = originalFiles;
