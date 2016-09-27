@@ -39,14 +39,14 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
                                     "score": 0
                                 };
                                 $scope.filesContent[$scope.currentCall] = fileInfos;
-                                var filename = $scope.filesContent[$scope.currentCall].filename;
-                                if(filename.endsWith(".java"))
-                                javaAnalysisServices.getScoreOfClass(filename, $scope.repoName, $scope.filesContent[$scope.currentCall].id).then(
-                                    function (scoreOfClass) {
-                                        $scope.loading = false;
-                                        $scope.filesContent[scoreOfClass.id].score = scoreOfClass.value;
-                                    });
+                                var file = $scope.filesContent[$scope.currentCall];
                                 $scope.currentCall++;
+                                if (file.filename.endsWith(".java"))
+                                    javaAnalysisServices.getScoreOfClass(file.filename, $scope.repoName, file.id).then(
+                                        function (scoreOfClass) {
+                                            $scope.loading = false;
+                                            $scope.filesContent[scoreOfClass.id].score = scoreOfClass.value;
+                                        });
                             });
                     }
                 });
