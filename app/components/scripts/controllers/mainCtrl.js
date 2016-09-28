@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app').controller('MainCtrl', function ($scope, githubServices, javaAnalysisServices) {
+angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githubServices, javaAnalysisServices) {
     $scope.url = {};
     $scope.loading = false;
     $scope.repoName = "";
@@ -42,11 +42,12 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
                                     javaAnalysisServices.getScoreOfClass(file.filename, $scope.repoName, file.id).then(
                                         function (scoreOfClass) {
                                             $scope.loading = false;
-                                            for(var k = 0; k < $scope.filesContent.length; k++)
-                                                if($scope.filesContent[k].id == scoreOfClass.id)
+                                            for (var k = 0; k < $scope.filesContent.length; k++)
+                                                if ($scope.filesContent[k].id == scoreOfClass.id)
                                                     $scope.filesContent[k].score = scoreOfClass.value;
                                             $scope.filesContent.sort(sortFilesContentCompareMethod);
                                             //lever event pour traiter les couleurs des méthodes
+                                            $rootScope.$broadcast('modifiedFileToAnalyseForHighlighting', { file: {file} });
                                         });
                             });
                     }
@@ -86,4 +87,9 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
                 });
         }
     };
+
+    $rootScope.$on('modifiedFileToAnalyseForHighlighting', function(event, args) {
+        console.log(args.file);
+    });
+    
 });

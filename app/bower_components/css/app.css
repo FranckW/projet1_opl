@@ -1,0 +1,46 @@
+/* app css stylesheet */
+
+
+body {
+    margin: 10px;
+    color: #b2bfdc !important;
+}
+
+.mainPage {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.formContent {
+    width: 50%;
+    margin: 0 auto; 
+}
+
+.greyBox {
+  padding: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: #2d3e63 !important;
+  color: #b2bfdc !important;
+  font-size:15px !important;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+}
+
+.backgroundApp {
+    background-color: #b2bfdc !important;
+    color: #2d3e63 !important;
+}
+
+li {
+  list-style-type: none;
+}
+
+hr {
+    border-top: 2px solid #2d3e63 !important;
+}
+
+.pullRequestTitle {
+    text-align: center;
+    font-size: 2em;
+}

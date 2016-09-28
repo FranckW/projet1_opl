@@ -7,7 +7,7 @@
   <title>Pull Request analyzer</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="bower_components/css/app.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="bower_components/css/rdash.min.css">
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -15,54 +15,10 @@
 </head>
 
 <body spellcheck=false>
-    <div id="page-wrapper" ng-class="{'open': true}" ng-cloak>
-
-      <!-- Sidebar -->
-      <div id="sidebar-wrapper">
-        <ul class="sidebar">
-          <li class="sidebar-main">
-            <a>
-              <span class="menu-icon glyphicon glyphicon-transfer"></span>
-            </a>
-          </li>
-          <li class="sidebar-list">
-            <a href="/"><span class="menu-icon">Home</span></a>
-          </li>
-          <li class="sidebar-list sidebar-listlink">
-            <a href="https://github.com/FranckW/projet1_opl" target="_blank"><span class="menu-icon">GitHub</span></a>
-          </li>
-          <li class="sidebar-list sidebar-listlink">
-            <a href="https://github.com/FranckW/projet1_opl/blob/master/README.md" target="_blank"><span class="menu-icon">About</span></a>
-          </li>
-        </ul>
-      </div>
-      <!-- End Sidebar -->
-
-      <div id="content-wrapper">
-        <div class="page-content">
-
-          <!-- Header Bar -->
-          <div class="row header">
-            <div class="col-xs-12">
-              <div class="meta">
-                <div class="page">
-                  Pull Request analyzer
-                </div>
-                <div class="breadcrumb-links">
-                  Pull Request analyzer / Home
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- End Header Bar -->
-
-        </div>
-        <!-- End Page Content -->
-      </div>
-      <!-- End Content Wrapper -->
-    </div>
-  <div class="mainPage">
+    <div ng-include="'views/sidebar.html'"></div>
+  <div class="mainPage container" ng-controller="MainCtrl">
     <div ng-include="'views/form.html'"></div>
+    <div ng-include="'views/content.html'"></div>
   </div>
 
 
