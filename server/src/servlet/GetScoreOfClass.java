@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import utils.CrossDomainHandler;
@@ -39,15 +38,11 @@ public class GetScoreOfClass extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		int score = 10;
 
-		JSONArray ja = new JSONArray();
 		JSONObject jo = new JSONObject();
 		jo.put("id", id);
 		jo.put("value", score);
-		ja.add(jo);
 
-		JSONObject mainObj = new JSONObject();
-		mainObj.put("postits", ja);
-		out.write(mainObj.toJSONString());
+		out.write(jo.toJSONString());
 
 		out.flush();
 	}
