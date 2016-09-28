@@ -10,8 +10,6 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
     $scope.currentCall = 0;
 
     function updatePullRequests(pullRequestsData) {
-        console.log("user : " + pullRequestsData[0].user.login);
-        console.log("repo name : " + pullRequestsData[0].head.repo.name);
         $scope.pullRequests = pullRequestsData;
         $scope.loading = true;
         getFilesContent();
@@ -23,7 +21,6 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
                 function (filesContentData) {
                     $scope.files = filesContentData;
                     for (var j = 0; j < $scope.files.length; j++) {
-                        //console.log("patch : " + $scope.files[j].patch);
                         var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
                         var indexOfRaw = $scope.files[j].raw_url.indexOf('/raw');
                         var urlGithubContent = urlStart + $scope.files[j].raw_url.substring(indexOfRaw + 4);
@@ -49,6 +46,7 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
                                                 if($scope.filesContent[k].id == scoreOfClass.id)
                                                     $scope.filesContent[k].score = scoreOfClass.value;
                                             $scope.filesContent.sort(sortFilesContentCompareMethod);
+                                            //lever event pour traiter les couleurs des méthodes
                                         });
                             });
                     }
@@ -65,6 +63,12 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
 
 
     $scope.submitUrl = function () {
+        $scope.repoName = "";
+        $scope.originalFiles = {};
+        $scope.pullRequests = {};
+        $scope.files = {};
+        $scope.filesContent = [];
+        $scope.currentCall = 0;
         $scope.loading = true;
         var githubUrl = 'https://github.com/';
         var urlStart = $scope.url.value.substring(0, githubUrl.length);
