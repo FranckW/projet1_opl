@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Pull Request analyzer</title>
+  <title>Pull Requests Analyzer</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/css/app.css">
@@ -15,7 +15,7 @@
 </head>
 
 <body spellcheck=false>
-    <div ng-include="'views/sidebar.html'"></div>
+  <div ng-include="'views/sidebar.html'"></div>
   <div class="mainPage container" ng-controller="MainCtrl">
     <div ng-include="'views/form.html'"></div>
     <div ng-include="'views/content.html'"></div>
@@ -26,13 +26,14 @@
   <script src="bower_components/angular-route/angular-route.min.js"></script>
   <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-  <script src="app.js"></script>
+  <script src="components/scripts/app.js"></script>
   <script src="components/scripts/controllers/mainCtrl.js"></script>
   <script src="components/scripts/services/githubServices.js"></script>
   <script src="components/scripts/services/javaAnalysisServices.js"></script>
 
   <script src="components/scripts/directives/loading.js"></script>
   <script src="components/scripts/directives/spin.min.js"></script>
+
 </body>
 
 </html>

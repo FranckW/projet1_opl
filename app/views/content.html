@@ -2,7 +2,7 @@
     <ul>
         <li ng-repeat="pr in pullRequests">
             <hr>
-            <p class="pullRequestTitle"><strong>Pull request {{pr.number}}</strong></p>
+            <p class="pullRequestTitle"><strong>Pull request n°{{pr.number}}</strong></p>
             <ul>
                 <li ng-repeat="fileContent in filesContent">
                     <hr>
@@ -10,7 +10,7 @@
                     <p>File path : {{fileContent.path}}</p>
                     <p>File id : {{fileContent.id}}</p>
                     <p>File score : {{fileContent.score}}</p>
-                    <pre class="prettyprint">{{fileContent.content}}</pre>
+                    <pre class="prettyprint"><code class="language-java">{{fileContent.content}}</code></pre>
                 </li>
             </ul>
     </ul>
