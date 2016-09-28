@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +37,8 @@ public class GetScoreOfClass extends HttpServlet {
 		String repoName = request.getParameter("repoName");
 
 		PrintWriter out = response.getWriter();
-		int score = 10;
+		Random rand = new Random();
+		int score = rand.nextInt(1000);
 
 		JSONObject jo = new JSONObject();
 		jo.put("id", id);

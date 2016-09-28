@@ -6,7 +6,7 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
     $scope.originalFiles = {};
     $scope.pullRequests = {};
     $scope.files = {};
-    $scope.filesContent = {};
+    $scope.filesContent = [];
     $scope.currentCall = 0;
 
     function updatePullRequests(pullRequestsData) {
@@ -44,12 +44,11 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
                                 if (file.filename.endsWith(".java"))
                                     javaAnalysisServices.getScoreOfClass(file.filename, $scope.repoName, file.id).then(
                                         function (scoreOfClass) {
-                                            console.log(scoreOfClass.id);
-                                            console.log(scoreOfClass.value);
                                             $scope.loading = false;
                                             for(var k = 0; k < $scope.filesContent.length; k++)
-                                                if($scope.filesContent[k].id = scoreOfClass.id)
+                                                if($scope.filesContent[k].id == scoreOfClass.id)
                                                     $scope.filesContent[k].score = scoreOfClass.value;
+                                            $scope.filesContent.sort(sortFilesContentCompareMethod);
                                         });
                             });
                     }
@@ -58,6 +57,10 @@ angular.module('app').controller('MainCtrl', function ($scope, githubServices, j
 
     function setOriginalFiles(originalFiles) {
         $scope.originalFiles = originalFiles;
+    };
+
+    function sortFilesContentCompareMethod(fileA, fileB) {
+        return fileB.score - fileA.score
     };
 
 
