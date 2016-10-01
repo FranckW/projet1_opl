@@ -13,13 +13,17 @@ public class App {
         launcher.addInputResource(repositoryPath);        
         launcher.setSourceOutputDirectory(outputDirectory);
         
-        //Here add the processors which analyse the source code
         launcher.addProcessor(new ClassProcessor());
         launcher.run();
     
+        System.out.println("Before analyse : ");
         ClassRanking rank = ClassProcessor.getRank();
         System.out.println(rank.toString());
         
+        System.out.println("After analyse : ");
+        ClassProcessor.extendsAnalyse();
+        System.out.println(rank.toString());
+
     }
     
 }

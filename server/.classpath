@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="C:/Users/ordinateur/Downloads/javax.servlet-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/javaee-api-6.0-6.jar"/>
+	<classpathentry kind="src" path="repository"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

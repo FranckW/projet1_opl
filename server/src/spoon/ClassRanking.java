@@ -19,6 +19,10 @@ public class ClassRanking {
 		classRankingMap.put(className, 0);
 	}
 	
+	public static void addPoints(String className, int points){
+		classRankingMap.put(className, classRankingMap.get(className) + points);
+	}
+	
 	public String toString(){
 		StringBuilder ret = new StringBuilder();
 		
