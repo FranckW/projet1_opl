@@ -9,12 +9,12 @@ import spoon.reflect.declaration.CtClass;
 public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	
 	private static ClassRanking rank = new ClassRanking();
-	private static List<String> classList = new LinkedList();
+	private static List<CtClass<?>> classList = new LinkedList<CtClass<?>>();
 	final static int EXTENDS_POINTS = 5;
 	
 	@Override
 	public boolean isToBeProcessed(CtClass<?> candidate) {
-		ClassRanking.addClass(candidate.getSimpleName());
+		ClassRanking.addClass(candidate);
 		//return candidate.getSimpleName().startsWith("V");
 		//We want all the classes
 		return true;
@@ -26,15 +26,16 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	
 	//add all the java class of the repository in the list
 	public void process(CtClass<?> arg0) {
-		classList.add(arg0.toString());
+		classList.add(arg0);
+		System.out.println("test : " + arg0.getSuperclass());
 	}
 	
 	public static void extendsAnalyse(){
 		String parentClass;
 
-		for(String classElement : classList){
-			if(classElement.contains("extends")){
-				parentClass = getParentClass(classElement);
+		for(CtClass<?> classElement : classList){
+			if(classElement.getSuperclass() != null){
+				parentClass = getParentClass(classElement.toString());
 				ClassRanking.addPoints(parentClass, EXTENDS_POINTS);
 			}
 		}

@@ -16,6 +16,7 @@ public class App {
         launcher.addProcessor(new ClassProcessor());
         launcher.run();
     
+        
         System.out.println("Before analyse : ");
         ClassRanking rank = ClassProcessor.getRank();
         System.out.println(rank.toString());
