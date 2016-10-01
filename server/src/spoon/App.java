@@ -1,7 +1,6 @@
 package spoon;
 
 import java.io.IOException;
-import spoon.Launcher;
 
 public class App {
 	
@@ -10,7 +9,7 @@ public class App {
         final Launcher launcher = new Launcher();
         final String repositoryPath = Pwd.getRepositoryPath();
         final String outputDirectory = Pwd.getOutputPath();
-
+        
         launcher.addInputResource(repositoryPath);        
         launcher.setSourceOutputDirectory(outputDirectory);
         
@@ -18,6 +17,9 @@ public class App {
         launcher.addProcessor(new ClassProcessor());
         launcher.run();
     
+        ClassRanking rank = ClassProcessor.getRank();
+        System.out.println(rank.toString());
+        
     }
     
 }
