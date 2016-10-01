@@ -4,8 +4,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/franc/Documents/NetBeansProjects/utilsApp/server/jeeServer/lib/javaee-api-6.0-6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/franc/Documents/NetBeansProjects/utilsApp/server/jeeServer/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/spoon-core-5.3.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ordinateur/Downloads/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/javaee-api-6.0-6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
