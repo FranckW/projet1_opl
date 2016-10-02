@@ -4,5 +4,8 @@
 
 
 
-public class Voiture {}
+public class Voiture {
+    public static void main(java.lang.String[] args) {
+    }
+}
 

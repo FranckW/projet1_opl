@@ -23,8 +23,9 @@ public class App {
         
         System.out.println("After analyse : ");
         ClassProcessor.extendsAnalyse();
+        ClassProcessor.mainClassAnalyse();
         System.out.println(rank.toString());
-
+	
     }
     
 }

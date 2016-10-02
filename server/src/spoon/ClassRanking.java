@@ -37,7 +37,7 @@ public class ClassRanking {
 		StringBuilder ret = new StringBuilder();
 		
 		for (CtClass<?> name: classRankingMap.keySet()){
-			String key = name.toString();
+			String key = name.getSimpleName().toString();
             String value = classRankingMap.get(name).toString();  
             ret.append("classe : " + key + " score : " + value + "`\n");  
 		} 
