@@ -3,7 +3,6 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
     $scope.url = {};
     $scope.loading = false;
     $scope.repoName = "";
-    $scope.originalFiles = {};
     $scope.pullRequests = {};
     $scope.files = {};
     $scope.filesContent = [];
@@ -58,18 +57,12 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
         }
     };
 
-    function setOriginalFiles(originalFiles) {
-        $scope.originalFiles = originalFiles;
-    };
-
     function sortFilesContentCompareMethod(fileA, fileB) {
         return fileB.score - fileA.score
     };
 
-
     $scope.submitUrl = function () {
         $scope.repoName = "";
-        $scope.originalFiles = {};
         $scope.pullRequests = {};
         $scope.files = {};
         $scope.filesContent = [];
@@ -79,19 +72,15 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
         var urlStart = $scope.url.value.substring(0, githubUrl.length);
         if (urlStart == githubUrl) {
             $scope.repoName = $scope.url.value.substring(githubUrl.length, $scope.url.value.length);
-            /*javaAnalysisServices.cloneRepo($scope.repoName).then(
+            javaAnalysisServices.cloneRepo($scope.repoName).then(
                 function (data) {
+                    console.log("retour de clone repo : " + data);
                     //should be empty
-                });*/
+                });
             githubServices.getAllPullRequests($scope.repoName).then(
                 function (pullRequestsData) {
                     $scope.loading = false;
                     updatePullRequests(pullRequestsData);
-                });
-
-            githubServices.getOriginalRepoFiles($scope.repoName).then(
-                function (originalFiles) {
-                    setOriginalFiles(originalFiles);
                 });
         }
     };
