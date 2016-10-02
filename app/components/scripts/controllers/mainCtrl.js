@@ -29,17 +29,17 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                         githubServices.getFileContent(urlGithubContent).then(
                             function (fileContentData) {
                                 var score = 1;
-                                var file = $scope.filesContent[$scope.currentCall];
-                                if (file.filename.endsWith(".class"))
-                                    score = 0;
                                 var fileInfos = {
                                     "id": $scope.files[$scope.currentCall].sha,
                                     "filename": $scope.files[$scope.currentCall].filename,
                                     "content": fileContentData,
-                                    "score": score,
+                                    "score": 1,
                                     "forkRepo": forkRepoUrl.substring(0, forkRepoUrl.length - 4)
                                 };
                                 $scope.filesContent[$scope.currentCall] = fileInfos;
+                                var file = $scope.filesContent[$scope.currentCall];
+                                if (file.filename.endsWith(".class"))
+                                    $scope.filesContent[$scope.currentCall].score = 0;
                                 $scope.currentCall++;
                                 if (file.filename.endsWith(".java"))
                                     javaAnalysisServices.getScoreOfClass(file.filename, $scope.repoName, file.id).then(

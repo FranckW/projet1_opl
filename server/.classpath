@@ -10,5 +10,8 @@
 	<classpathentry kind="lib" path="C:/Users/franc/Desktop/Prog/M2/opl/test/projet1_opl/server/lib/javax.servlet-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/franc/Desktop/Prog/M2/opl/test/projet1_opl/server/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/franc/Desktop/Prog/M2/opl/test/projet1_opl/server/lib/org.eclipse.jgit-4.5.0.201609210915-r.jar"/>
+	<classpathentry kind="lib" path="C:/Users/franc/Desktop/Prog/M2/opl/test/projet1_opl/server/lib/slf4j-1.7.21/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/franc/Desktop/Prog/M2/opl/test/projet1_opl/server/lib/jsch-0.1.54.jar"/>
+	<classpathentry kind="lib" path="C:/Users/franc/Desktop/Prog/M2/opl/test/projet1_opl/server/lib/slf4j-1.7.21/slf4j-simple-1.7.21.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
