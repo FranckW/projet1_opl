@@ -16,7 +16,8 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
     };
 
     function getFilesContent() {
-        for (var i = 0; i < $scope.pullRequests.length; i++)
+        for (var i = 0; i < $scope.pullRequests.length; i++) {
+            var forkRepoUrl = $scope.pullRequests[i].head.repo.clone_url;
             githubServices.getContentOfPullRequest($scope.repoName, $scope.pullRequests[i].number).then(
                 function (filesContentData) {
                     $scope.files = filesContentData;
@@ -27,16 +28,18 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                         $scope.loading = true;
                         githubServices.getFileContent(urlGithubContent).then(
                             function (fileContentData) {
-                                $scope.loading = false;
+                                var score = 1;
+                                var file = $scope.filesContent[$scope.currentCall];
+                                if (file.filename.endsWith(".class"))
+                                    score = 0;
                                 var fileInfos = {
                                     "id": $scope.files[$scope.currentCall].sha,
                                     "filename": $scope.files[$scope.currentCall].filename,
-                                    "path": $scope.files[$scope.currentCall].path,
                                     "content": fileContentData,
-                                    "score": 0
+                                    "score": score,
+                                    "forkRepo": forkRepoUrl.substring(0, forkRepoUrl.length - 4)
                                 };
                                 $scope.filesContent[$scope.currentCall] = fileInfos;
-                                var file = $scope.filesContent[$scope.currentCall];
                                 $scope.currentCall++;
                                 if (file.filename.endsWith(".java"))
                                     javaAnalysisServices.getScoreOfClass(file.filename, $scope.repoName, file.id).then(
@@ -52,6 +55,7 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                             });
                     }
                 });
+        }
     };
 
     function setOriginalFiles(originalFiles) {
@@ -75,6 +79,10 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
         var urlStart = $scope.url.value.substring(0, githubUrl.length);
         if (urlStart == githubUrl) {
             $scope.repoName = $scope.url.value.substring(githubUrl.length, $scope.url.value.length);
+            /*javaAnalysisServices.cloneRepo($scope.repoName).then(
+                function (data) {
+                    //should be empty
+                });*/
             githubServices.getAllPullRequests($scope.repoName).then(
                 function (pullRequestsData) {
                     $scope.loading = false;

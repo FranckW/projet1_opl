@@ -7,7 +7,7 @@
                 <li ng-repeat="fileContent in filesContent">
                     <hr>
                     <p>File name : {{fileContent.filename}}</p>
-                    <p>File path : {{fileContent.path}}</p>
+                    <p>Pull request from : <a href="{{fileContent.forkRepo}}" target="_blank">{{fileContent.forkRepo}}</a></p>
                     <p>File id : {{fileContent.id}}</p>
                     <p>File score : {{fileContent.score}}</p>
                     <pre class="prettyprint"><code class="language-java">{{fileContent.content}}</code></pre>

@@ -3,7 +3,8 @@ angular.module('app').service(
     "javaAnalysisServices",
     function ($http, $q) {
         return ({
-            getScoreOfClass: getScoreOfClass
+            getScoreOfClass: getScoreOfClass,
+            cloneRepo: cloneRepo
         });
 
         function getScoreOfClass(classContent, repoName, id) {
@@ -14,6 +15,17 @@ angular.module('app').service(
                     classContent: classContent,
                     repoName: repoName,
                     id: id
+                }
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function cloneRepo(repoName) {
+            var request = $http({
+                method: "get",
+                url: 'http://localhost:8080/server/cloneRepo',
+                params: {
+                    repoName: repoName
                 }
             });
             return (request.then(handleSuccess, handleError));
