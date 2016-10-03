@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +34,8 @@ public class CloneGithubRepository extends HttpServlet {
 
 		String repoName = request.getParameter("repoName");
 		try {
-			File outputDirectory = new File((new File("../").getAbsolutePath()) + "\\" + repoName);
+			File outputDirectory = new File(
+					(new File("../").getAbsolutePath()) + "\\" + repoName + (new Random().nextInt(50000)));
 			deleteDir(outputDirectory);
 			Git.cloneRepository().setURI("https://github.com/" + repoName + ".git").setDirectory(outputDirectory)
 					.call();
