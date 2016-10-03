@@ -14,12 +14,11 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	private static List<CtClass<?>> classList = new LinkedList<CtClass<?>>();
 	final static int EXTENDS_POINTS = 5;
 	final static int MAINCLASS_POINTS = 5;
+	final static int GODCLASS_POINTS = 5;
 	
 	@Override
 	public boolean isToBeProcessed(CtClass<?> candidate) {
 		ClassRanking.addClass(candidate);
-		//return candidate.getSimpleName().startsWith("V");
-		//We want all the classes
 		return true;
 	}
 
@@ -27,7 +26,7 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 		return rank;
 	}
 	
-	//add all the java class of the repository in the list
+
 	public void process(CtClass<?> arg0) {
 		classList.add(arg0);
 		Set<CtMethod<?>> methods = arg0.getMethods();
@@ -42,10 +41,9 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	public static void extendsAnalyse(){
 		
 		String parentClass;
-		
 		for(CtClass<?> classElement : classList){
 			if(classElement.getSuperclass() != null){
-				parentClass = classElement.getSuperclass().toString();
+				parentClass = classElement.getSuperclass().getSimpleName();
 				ClassRanking.addPoints(parentClass, EXTENDS_POINTS);
 			}
 		}
@@ -59,7 +57,6 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 				methods = classElement.getMethods();
 				for(CtMethod<?> ctmethod : methods){
 					if(ctmethod.getSimpleName().toString().equals("main")){
-						System.out.println("found main class in : " + classElement.getSimpleName().toString());
 						ClassRanking.addPoints(classElement.getSimpleName(), MAINCLASS_POINTS);
 
 					}
@@ -67,4 +64,31 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 		}
 	}
 	
+	public static void godClassAnalyse(){
+		int classAverageSize = getAverageSize();
+		for(CtClass<?> classElement : classList){
+			if(classElement.toString().length() > classAverageSize*2){
+				ClassRanking.addPoints(classElement.getSimpleName(), GODCLASS_POINTS);
+			}
+		}
+	}
+	
+	private static int getAverageSize(){
+		int sizeClassTotal = 0;
+		int currentClassElementSize;
+		int classNumbers = classList.size();
+		int classAverageSize;
+		
+		for(CtClass<?> classElement : classList){
+			currentClassElementSize = classElement.toString().length();
+			sizeClassTotal = sizeClassTotal + currentClassElementSize;
+			}
+		classAverageSize = sizeClassTotal / classNumbers;
+		return classAverageSize;
+	}
+		
+	
+	public static void methodStrengthAnalyse(){
+		
+	}
 }

@@ -19,4 +19,9 @@ public class Pwd {
 		return outputPath;
 	} 
 	
+	public static String getChoosenPath(String path) throws IOException{
+		String choosedPath = Pwd.getPath() + "\\" + path;
+		return choosedPath;
+	}
+	
 }
