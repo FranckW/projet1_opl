@@ -17,6 +17,13 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
     function getFilesContent() {
         for (var i = 0; i < $scope.pullRequests.length; i++) {
             var forkRepoUrl = $scope.pullRequests[i].head.repo.clone_url;
+            var githubUrl = 'https://github.com/';
+            var forkRepoName = forkRepoUrl.substring(githubUrl.length, forkRepoUrl.length - 4);
+            console.log(forkRepoName);
+            javaAnalysisServices.cloneRepo(forkRepoName).then(
+                function (data) {
+                    //should be empty
+                });
             githubServices.getContentOfPullRequest($scope.repoName, $scope.pullRequests[i].number).then(
                 function (filesContentData) {
                     $scope.files = filesContentData;
@@ -49,7 +56,7 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                                     $scope.filesContent[$scope.currentCall].score = 0;
                                 $scope.currentCall++;
                                 if (file.filename.endsWith(".java"))
-                                    javaAnalysisServices.getScoreOfClass(file.filename, $scope.repoName, file.id).then(
+                                    javaAnalysisServices.getScoreOfClass(file.filename.substring(0, file.filename.length - 5), $scope.repoName, file.id).then(
                                         function (scoreOfClass) {
                                             $scope.loading = false;
                                             for (var k = 0; k < $scope.filesContent.length; k++)
@@ -79,10 +86,6 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
         var urlStart = $scope.url.value.substring(0, githubUrl.length);
         if (urlStart == githubUrl) {
             $scope.repoName = $scope.url.value.substring(githubUrl.length, $scope.url.value.length);
-            javaAnalysisServices.cloneRepo($scope.repoName).then(
-                function (data) {
-                    //should be empty
-                });
             githubServices.getAllPullRequests($scope.repoName).then(
                 function (pullRequestsData) {
                     $scope.loading = false;
@@ -113,10 +116,10 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
         lines = difflib.stringAsLines(fileContent);
         for (var i = 0; i < lines.length; i++) {
             if (lines[i].startsWith('-')) {
-                lines[i] = '<span class="classStyleRemoved">' + lines[i] + '</span>';
+                lines[i] = '<span class="classStyleLineRemoved">' + lines[i] + '</span>';
             }
             if (lines[i].startsWith('+')) {
-                lines[i] = '<span class="classStyleAdded">' + lines[i] + '</span>';
+                lines[i] = '<span class="classStyleLineAdded">' + lines[i] + '</span>';
             }
         }
         return lines;

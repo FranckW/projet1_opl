@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
+import spoon.ClassProcessor;
+import spoon.ClassRanking;
+import spoon.Launcher;
+import spoon.Pwd;
 import utils.CrossDomainHandler;
 
 @WebServlet(name = "/CloneGithubRepository", urlPatterns = { "/cloneRepo" })
@@ -39,6 +43,24 @@ public class CloneGithubRepository extends HttpServlet {
 			deleteDir(outputDirectory);
 			Git.cloneRepository().setURI("https://github.com/" + repoName + ".git").setDirectory(outputDirectory)
 					.call();
+			final Launcher launcher = new Launcher();
+			final String repositoryPath = outputDirectory.getAbsolutePath();
+			final String outputDir = Pwd.getOutputPath();
+
+			launcher.addInputResource(repositoryPath);
+			launcher.setSourceOutputDirectory(outputDir);
+
+			launcher.addProcessor(new ClassProcessor());
+			launcher.run();
+
+			System.out.println("Before analyse : ");
+			ClassRanking rank = ClassProcessor.getRank();
+			System.out.println(rank.toString());
+
+			System.out.println("After analyse : ");
+			ClassProcessor.extendsAnalyse();
+			ClassProcessor.mainClassAnalyse();
+			System.out.println(rank.toString());
 		} catch (GitAPIException e) {
 			e.printStackTrace();
 		}

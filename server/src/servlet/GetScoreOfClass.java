@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import spoon.ClassProcessor;
+import spoon.ClassRanking;
 import utils.CrossDomainHandler;
 
 @WebServlet(name = "/GetScoreOfClass", urlPatterns = { "/getScoreOfClass" })
@@ -33,16 +34,13 @@ public class GetScoreOfClass extends HttpServlet {
 		CrossDomainHandler.handle(request, response, getServletContext());
 
 		String id = request.getParameter("id");
-		String classContent = request.getParameter("classContent");
-		String repoName = request.getParameter("repoName");
-
+		String className = request.getParameter("className");
 		PrintWriter out = response.getWriter();
-		Random rand = new Random();
-		int score = rand.nextInt(1000);
+		ClassRanking rank = ClassProcessor.getRank();
 
 		JSONObject jo = new JSONObject();
 		jo.put("id", id);
-		jo.put("value", score);
+		jo.put("value", rank.getRankForClass(className));
 
 		out.write(jo.toJSONString());
 

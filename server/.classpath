@@ -10,41 +10,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="repository"/>
-	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/javaee-api-6.0-6.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/javax.servlet-api-3.0.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/jsch-0.1.54.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/json-simple-1.1.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/org.eclipse.jgit-4.5.0.201609210915-r.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/slf4j-1.7.21/slf4j-api-1.7.21.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ordinateur/Documents/OPL/Projet1/projet1_opl/server/lib/slf4j-1.7.21/slf4j-simple-1.7.21.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/franc/Desktop/Prog/M2/opl/test/projet1_opl/server/lib/javaee-api-6.0-6.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
