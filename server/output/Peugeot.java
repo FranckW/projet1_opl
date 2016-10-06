@@ -4,5 +4,7 @@
 
 
 
-public class Peugeot extends Voiture {}
+public class Peugeot extends Voiture {
+    public int durabilite;
+}
 

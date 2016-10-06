@@ -45,6 +45,7 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	        ClassProcessor.mainClassAnalyse(classElement);
 	        ClassProcessor.godClassAnalyse(classElement);
 	        ClassProcessor.methodNumbersAnalyse(classElement);
+	        ClassProcessor.attributeNumbersAnalyse(classElement);
 			
 		}
 	}
@@ -111,8 +112,8 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 		
 	}
 	
-	public static void attributeNumbersAnalyse(){
-		
+	public static void attributeNumbersAnalyse(CtClass<?> classElement){
+		ClassRanking.addPoints(classElement.getSimpleName(),classElement.getAllFields().size());
 	}
 	
 }

@@ -6,7 +6,8 @@
 
 public class Maison {
     public java.lang.String toString() {
-        return "C'est chez moi";
+        java.lang.String s = "C'est chez moi";
+        return s;
     }
 }
 

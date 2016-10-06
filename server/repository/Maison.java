@@ -1,7 +1,8 @@
 public class Maison {
 
 public String toString(){
-	return "C'est chez moi";
+	String s = "C'est chez moi";
+	return s;
 }
 
 }
