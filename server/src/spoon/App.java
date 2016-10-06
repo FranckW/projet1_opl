@@ -22,10 +22,7 @@ public class App {
         System.out.println(rank.toString());
         
         System.out.println("After analyse : ");
-        ClassProcessor.extendsAnalyse();
-        ClassProcessor.mainClassAnalyse();
-        ClassProcessor.godClassAnalyse();
-        ClassProcessor.methodNumbersAnalyse();
+        ClassProcessor.analyse();
         System.out.println(rank.toString());
 	
     }

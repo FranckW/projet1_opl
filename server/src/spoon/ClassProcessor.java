@@ -41,7 +41,10 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	public static void analyse(){
 		for(CtClass<?> classElement : classList){
 			
-			//Insert all the analyse analyse
+			ClassProcessor.extendsAnalyse(classElement);
+	        ClassProcessor.mainClassAnalyse(classElement);
+	        ClassProcessor.godClassAnalyse(classElement);
+	        ClassProcessor.methodNumbersAnalyse(classElement);
 			
 		}
 	}
@@ -49,21 +52,18 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	/**
 	 * Get the name of the parent class of java class if it exist and give points to it
 	 */
-	public static void extendsAnalyse(){
+	public static void extendsAnalyse(CtClass<?> classElement){
 		
 		String parentClass;
-		for(CtClass<?> classElement : classList){
 			if(classElement.getSuperclass() != null){
 				parentClass = classElement.getSuperclass().getSimpleName();
 				ClassRanking.addPoints(parentClass, EXTENDS_POINTS);
-			}
+			
 		}
 	}
 	
-	public static void mainClassAnalyse(){
+	public static void mainClassAnalyse(CtClass<?> classElement){
 		Set<CtMethod<?>> methods;
-		
-		for(CtClass<?> classElement : classList){
 			
 				methods = classElement.getMethods();
 				for(CtMethod<?> ctmethod : methods){
@@ -71,17 +71,16 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 						ClassRanking.addPoints(classElement.getSimpleName(), MAINCLASS_POINTS);
 
 					}
-				}
+				
 		}
 	}
 	
-	public static void godClassAnalyse(){
+	public static void godClassAnalyse(CtClass<?> classElement){
 		int classAverageSize = getAverageSize();
-		for(CtClass<?> classElement : classList){
 			if(classElement.toString().length() > classAverageSize*2){
 				ClassRanking.addPoints(classElement.getSimpleName(), GODCLASS_POINTS);
 			}
-		}
+		
 	}
 	
 	private static int getAverageSize(){
@@ -99,13 +98,11 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	}
 		
 	
-	public static void methodNumbersAnalyse(){
+	public static void methodNumbersAnalyse(CtClass<?> classElement){
 		int methodNumbers;
-
-		for(CtClass<?> classElement : classList){
-				methodNumbers = classElement.getMethods().size();
-				ClassRanking.addPoints(classElement.getSimpleName(), methodNumbers);
-			}
+		methodNumbers = classElement.getMethods().size();
+		ClassRanking.addPoints(classElement.getSimpleName(), methodNumbers);
+			
 		
 		
 	}

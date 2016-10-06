@@ -4,5 +4,9 @@
 
 
 
-public class Maison {}
+public class Maison {
+    public java.lang.String toString() {
+        return "C'est chez moi";
+    }
+}
 
