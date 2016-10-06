@@ -1,4 +1,4 @@
-public class Voiture {
+public class Voiture implements Drivable{
 	
 	public int prix;
 	public int roues;

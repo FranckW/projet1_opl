@@ -15,6 +15,7 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	final static int EXTENDS_POINTS = 5;
 	final static int MAINCLASS_POINTS = 5;
 	final static int GODCLASS_POINTS = 5;
+	final static int IMPLEMENTS_POINTS = 2;
 	
 	@Override
 	public boolean isToBeProcessed(CtClass<?> candidate) {
@@ -35,9 +36,6 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 		}
 	}
 	
-	/**
-	 * to optimise the code
-	 */
 	public static void analyse(){
 		for(CtClass<?> classElement : classList){
 			
@@ -46,12 +44,13 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	        ClassProcessor.godClassAnalyse(classElement);
 	        ClassProcessor.methodNumbersAnalyse(classElement);
 	        ClassProcessor.attributeNumbersAnalyse(classElement);
+	        ClassProcessor.implementsAnalyse(classElement);
 			
 		}
 	}
 	
 	/**
-	 * Get the name of the parent class of java class if it exist and give points to it
+	 * Get the name of the parent class if it exist and give points to it
 	 */
 	public static void extendsAnalyse(CtClass<?> classElement){
 		
@@ -63,6 +62,14 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 		}
 	}
 	
+	public static void implementsAnalyse(CtClass<?> classElement){
+		ClassRanking.addPoints(classElement, classElement.getSuperInterfaces().size() * IMPLEMENTS_POINTS);
+
+	}
+	
+	/**
+	 * If a main remains, add points
+	 */
 	public static void mainClassAnalyse(CtClass<?> classElement){
 		Set<CtMethod<?>> methods;
 			
@@ -76,6 +83,9 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 		}
 	}
 	
+	/**
+	 * If it's a big big class
+	 */
 	public static void godClassAnalyse(CtClass<?> classElement){
 		int classAverageSize = getAverageSize();
 			if(classElement.toString().length() > classAverageSize*2){
@@ -98,7 +108,9 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 		return classAverageSize;
 	}
 		
-	
+	/**
+	 * One method = some points
+	 * */
 	public static void methodNumbersAnalyse(CtClass<?> classElement){
 		int methodNumbers;
 		methodNumbers = classElement.getMethods().size();
@@ -112,6 +124,9 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 		
 	}
 	
+	/**
+	 * One attribute = some points;
+	 */
 	public static void attributeNumbersAnalyse(CtClass<?> classElement){
 		ClassRanking.addPoints(classElement.getSimpleName(),classElement.getAllFields().size());
 	}
