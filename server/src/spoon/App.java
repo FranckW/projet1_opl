@@ -25,6 +25,7 @@ public class App {
         ClassProcessor.extendsAnalyse();
         ClassProcessor.mainClassAnalyse();
         ClassProcessor.godClassAnalyse();
+        ClassProcessor.methodNumbersAnalyse();
         System.out.println(rank.toString());
 	
     }

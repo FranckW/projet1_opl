@@ -36,6 +36,17 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	}
 	
 	/**
+	 * to optimise the code
+	 */
+	public static void analyse(){
+		for(CtClass<?> classElement : classList){
+			
+			//Insert all the analyse analyse
+			
+		}
+	}
+	
+	/**
 	 * Get the name of the parent class of java class if it exist and give points to it
 	 */
 	public static void extendsAnalyse(){
@@ -88,7 +99,23 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	}
 		
 	
+	public static void methodNumbersAnalyse(){
+		int methodNumbers;
+
+		for(CtClass<?> classElement : classList){
+				methodNumbers = classElement.getMethods().size();
+				ClassRanking.addPoints(classElement.getSimpleName(), methodNumbers);
+			}
+		
+		
+	}
+	
 	public static void methodStrengthAnalyse(){
 		
 	}
+	
+	public static void attributeNumbersAnalyse(){
+		
+	}
+	
 }
