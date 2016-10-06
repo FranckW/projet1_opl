@@ -7,12 +7,12 @@ angular.module('app').service(
             cloneRepo: cloneRepo
         });
 
-        function getScoreOfClass(classContent, repoName, id) {
+        function getScoreOfClass(className, repoName, id) {
             var request = $http({
                 method: "get",
                 url: 'http://localhost:8080/server/getScoreOfClass',
                 params: {
-                    classContent: classContent,
+                    className: className,
                     repoName: repoName,
                     id: id
                 }

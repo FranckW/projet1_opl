@@ -44,3 +44,21 @@ hr {
     text-align: center;
     font-size: 2em;
 }
+
+.classStyleAdded {
+    background-color:rgba(0, 255, 0, 0.2);
+}
+
+.classStyleRemoved {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.classStyleLineRemoved {
+    background-color: rgba(255, 0, 0, 0.2);
+    font-size: 1.3em;
+}
+
+.classStyleLineAdded {
+    background-color:rgba(0, 255, 0, 0.2);
+    font-size: 1.3em;
+}
