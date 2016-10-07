@@ -19,54 +19,53 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
             var forkRepoUrl = $scope.pullRequests[i].head.repo.clone_url;
             var githubUrl = 'https://github.com/';
             var forkRepoName = forkRepoUrl.substring(githubUrl.length, forkRepoUrl.length - 4);
-            console.log(forkRepoName);
-            javaAnalysisServices.cloneRepo(forkRepoName).then(
+            javaAnalysisServices.cloneRepo(forkRepoName, $scope.pullRequests[i].number).then(
                 function (data) {
-                    //should be empty
-                });
-            githubServices.getContentOfPullRequest($scope.repoName, $scope.pullRequests[i].number).then(
-                function (filesContentData) {
-                    $scope.files = filesContentData;
-                    for (var j = 0; j < $scope.files.length; j++) {
-                        var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
-                        var indexOfRaw = $scope.files[j].raw_url.indexOf('/raw');
-                        var urlGithubContent = urlStart + $scope.files[j].raw_url.substring(indexOfRaw + 4);
-                        $scope.loading = true;
-                        githubServices.getFileContent(urlGithubContent).then(
-                            function (fileContentData) {
-                                var score = 1;
-                                if ($scope.files[$scope.currentCall].status == 'added' || $scope.files[$scope.currentCall].status == 'removed')
-                                    var content = fileContentData;
-                                else {
-                                    var content = $scope.files[$scope.currentCall].patch;
-                                    content = replaceAddAndRemove(content);
-                                    content = $sce.trustAsHtml(linesAsString(content));
-                                }
-                                var fileInfos = {
-                                    "id": $scope.files[$scope.currentCall].sha,
-                                    "filename": $scope.files[$scope.currentCall].filename,
-                                    "content": content,
-                                    "score": 1,
-                                    "forkRepo": forkRepoUrl.substring(0, forkRepoUrl.length - 4),
-                                    "status": $scope.files[$scope.currentCall].status,
-                                };
-                                $scope.filesContent[$scope.currentCall] = fileInfos;
-                                var file = $scope.filesContent[$scope.currentCall];
-                                if (file.filename.endsWith(".class"))
-                                    $scope.filesContent[$scope.currentCall].score = 0;
-                                $scope.currentCall++;
-                                if (file.filename.endsWith(".java"))
-                                    javaAnalysisServices.getScoreOfClass(file.filename.substring(0, file.filename.length - 5), $scope.repoName, file.id).then(
-                                        function (scoreOfClass) {
-                                            $scope.loading = false;
-                                            for (var k = 0; k < $scope.filesContent.length; k++)
-                                                if ($scope.filesContent[k].id == scoreOfClass.id)
-                                                    $scope.filesContent[k].score = scoreOfClass.value;
-                                            $scope.filesContent.sort(sortFilesContentCompareMethod);
-                                            prettyPrint();
-                                        });
-                            });
-                    }
+                    //utiliser les events pour éviter l'asynchrone, tester avec des print côté java aussi que c'est bien devenu synchrone'
+                    githubServices.getContentOfPullRequest($scope.repoName, data.pullRequestNumber).then(
+                        function (filesContentData) {
+                            $scope.files = filesContentData;
+                            for (var j = 0; j < $scope.files.length; j++) {
+                                var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
+                                var indexOfRaw = $scope.files[j].raw_url.indexOf('/raw');
+                                var urlGithubContent = urlStart + $scope.files[j].raw_url.substring(indexOfRaw + 4);
+                                $scope.loading = true;
+                                githubServices.getFileContent(urlGithubContent).then(
+                                    function (fileContentData) {
+                                        var score = 1;
+                                        if ($scope.files[$scope.currentCall].status == 'added' || $scope.files[$scope.currentCall].status == 'removed')
+                                            var content = fileContentData;
+                                        else {
+                                            var content = $scope.files[$scope.currentCall].patch;
+                                            content = replaceAddAndRemove(content);
+                                            content = $sce.trustAsHtml(linesAsString(content));
+                                        }
+                                        var fileInfos = {
+                                            "id": $scope.files[$scope.currentCall].sha,
+                                            "filename": $scope.files[$scope.currentCall].filename,
+                                            "content": content,
+                                            "score": 1,
+                                            "forkRepo": forkRepoUrl.substring(0, forkRepoUrl.length - 4),
+                                            "status": $scope.files[$scope.currentCall].status,
+                                        };
+                                        $scope.filesContent[$scope.currentCall] = fileInfos;
+                                        var file = $scope.filesContent[$scope.currentCall];
+                                        if (file.filename.endsWith(".class"))
+                                            $scope.filesContent[$scope.currentCall].score = 0;
+                                        $scope.currentCall++;
+                                        if (file.filename.endsWith(".java"))
+                                            javaAnalysisServices.getScoreOfClass(file.filename.substring(0, file.filename.length - 5), $scope.repoName, file.id).then(
+                                                function (scoreOfClass) {
+                                                    $scope.loading = false;
+                                                    for (var k = 0; k < $scope.filesContent.length; k++)
+                                                        if ($scope.filesContent[k].id == scoreOfClass.id && scoreOfClass.value > 0)
+                                                            $scope.filesContent[k].score = scoreOfClass.value;
+                                                    $scope.filesContent.sort(sortFilesContentCompareMethod);
+                                                    prettyPrint();
+                                                });
+                                    });
+                            }
+                        });
                 });
         }
     };

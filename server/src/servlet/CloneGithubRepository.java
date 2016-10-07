@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.json.simple.JSONObject;
 
 import spoon.ClassProcessor;
 import spoon.ClassRanking;
@@ -33,16 +35,21 @@ public class CloneGithubRepository extends HttpServlet {
 		doRequest(request, response);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void doRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		CrossDomainHandler.handle(request, response, getServletContext());
 
 		String repoName = request.getParameter("repoName");
+		String pullRequestNumber = request.getParameter("pullRequestNumber");
+		PrintWriter out = response.getWriter();
 		try {
 			File outputDirectory = new File(
 					(new File("../").getAbsolutePath()) + "\\" + repoName + (new Random().nextInt(50000)));
 			deleteDir(outputDirectory);
+			System.out.println("Before clone");
 			Git.cloneRepository().setURI("https://github.com/" + repoName + ".git").setDirectory(outputDirectory)
 					.call();
+			System.out.println("After clone");
 			final Launcher launcher = new Launcher();
 			final String repositoryPath = outputDirectory.getAbsolutePath();
 			final String outputDir = Pwd.getOutputPath();
@@ -58,9 +65,14 @@ public class CloneGithubRepository extends HttpServlet {
 			System.out.println(rank.toString());
 
 			System.out.println("After analyse : ");
-			ClassProcessor.extendsAnalyse();
-			ClassProcessor.mainClassAnalyse();
+			ClassProcessor.analyse();
 			System.out.println(rank.toString());
+			JSONObject jo = new JSONObject();
+			jo.put("pullRequestNumber", pullRequestNumber);
+
+			out.write(jo.toJSONString());
+
+			out.flush();
 		} catch (GitAPIException e) {
 			e.printStackTrace();
 		}

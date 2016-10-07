@@ -12,13 +12,14 @@ import spoon.reflect.declaration.CtClass;
 public class ClassRanking {
 
 	private static Map<CtClass<?>, Integer> classRankingMap;
+	final static int INITIAL_POINTS = 5;
 
 	public ClassRanking() {
 		classRankingMap = new HashMap<CtClass<?>, Integer>();
 	}
 
 	public static void addClass(CtClass<?> classCt) {
-		classRankingMap.put(classCt, 0);
+		classRankingMap.put(classCt, INITIAL_POINTS);
 	}
 
 	public static void addPoints(String className, int points) {
