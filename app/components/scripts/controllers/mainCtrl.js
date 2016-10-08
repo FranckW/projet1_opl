@@ -68,13 +68,13 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                 };
                 $scope.filesContent[index] = fileInfos;
                 var file = $scope.filesContent[index];
-                scoreTheFile(file);
+                scoreTheFile(file, index);
             });
     }
 
-    function scoreTheFile(file) {
+    function scoreTheFile(file, index) {
         if (file.filename.endsWith(".class"))
-            $scope.filesContent[j].score = 0;
+            $scope.filesContent[index].score = 0;
         if (file.filename.endsWith(".java")) {
             var begin = file.filename.lastIndexOf('/') > -1 ? file.filename.lastIndexOf('/') + 1 : 0;
             javaAnalysisServices.getScoreOfClass(file.filename.substring(begin, file.filename.length - 5), $scope.repoName, file.id).then(
