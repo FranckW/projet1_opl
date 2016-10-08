@@ -65,11 +65,10 @@ public class CloneGithubRepository extends HttpServlet {
 	        
 	        System.out.println("Before analyse : ");
 	        ClassRanking rank = rankProcessor.getRanking();
+	        RankingList.addClassRanking(rank);
 	        System.out.println(rank.toString());
 	        
 	        System.out.println("After analyse : ");
-	        rankProcessor.analyse();
-	        System.out.println(rank.toString());
 	        rankProcessor.analyse();
 	        System.out.println(rank.toString());
 	        

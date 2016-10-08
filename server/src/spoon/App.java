@@ -2,6 +2,8 @@ package spoon;
 
 import java.io.IOException;
 
+import servlet.RankingList;
+
 public class App {
 	
     public static void main(String[] args) throws IOException {
@@ -21,11 +23,10 @@ public class App {
         
         System.out.println("Before analyse : ");
         ClassRanking rank = rankProcessor.getRanking();
+        RankingList.addClassRanking(rank);
         System.out.println(rank.toString());
         
         System.out.println("After analyse : ");
-        rankProcessor.analyse();
-        System.out.println(rank.toString());
         rankProcessor.analyse();
         System.out.println(rank.toString());
 

@@ -36,7 +36,7 @@ public class GetScoreOfClass extends HttpServlet {
 		String id = request.getParameter("id");
 		String className = request.getParameter("className");
 		PrintWriter out = response.getWriter();
-		ClassRanking rank = RankingProcessor.getRank();
+		ClassRanking rank = RankingList.getClassRanking();
 
 		JSONObject jo = new JSONObject();
 		jo.put("id", id);
