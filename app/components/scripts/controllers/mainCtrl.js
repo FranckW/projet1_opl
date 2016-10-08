@@ -8,8 +8,53 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
     $scope.filesContent = [];
     $scope.currentCall = 0;
 
+
+    $scope.filteredItems = [];
+    $scope.groupedItems = [];
+    $scope.itemsPerPage = 1;
+    $scope.pagedItems = [];
+    $scope.currentPage = 0;
+
+
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+            $scope.pagedItems = [];
+            $scope.pagedItems.push($scope.pullRequests[$scope.currentPage]);
+        }
+    };
+
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.pagedItems.length - 1) {
+            $scope.currentPage++;
+            $scope.pagedItems = [];
+            $scope.pagedItems.push($scope.pullRequests[$scope.currentPage]);
+        }
+    };
+
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+        $scope.pagedItems = [];
+        $scope.pagedItems.push($scope.pullRequests[$scope.currentPage])
+    };
+
+    $scope.groupToPages = function () {
+        $scope.pagedItems = [];
+        
+        for (var i = 0; i < $scope.pullRequests.length; i++) {
+            if (i % $scope.itemsPerPage === 0) {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.pullRequests[i] ];
+            } else {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.pullRequests[i]);
+            }
+        }
+    };
+
+
+
     function updatePullRequests(pullRequestsData) {
         $scope.pullRequests = pullRequestsData;
+        $scope.groupToPages();
         $scope.loading = true;
         getFilesContent();
     };
@@ -21,7 +66,6 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
             var forkRepoName = forkRepoUrl.substring(githubUrl.length, forkRepoUrl.length - 4);
             javaAnalysisServices.cloneRepo(forkRepoName, $scope.pullRequests[i].number).then(
                 function (data) {
-                    //utiliser les events pour éviter l'asynchrone, tester avec des print côté java aussi que c'est bien devenu synchrone'
                     githubServices.getContentOfPullRequest($scope.repoName, data.pullRequestNumber).then(
                         function (filesContentData) {
                             $scope.files = filesContentData;
@@ -53,8 +97,9 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                                         if (file.filename.endsWith(".class"))
                                             $scope.filesContent[$scope.currentCall].score = 0;
                                         $scope.currentCall++;
-                                        if (file.filename.endsWith(".java"))
-                                            javaAnalysisServices.getScoreOfClass(file.filename.substring(0, file.filename.length - 5), $scope.repoName, file.id).then(
+                                        if (file.filename.endsWith(".java")) {
+                                            var begin = file.filename.lastIndexOf('/') > -1 ? file.filename.lastIndexOf('/') + 1 : 0;
+                                            javaAnalysisServices.getScoreOfClass(file.filename.substring(begin, file.filename.length - 5), $scope.repoName, file.id).then(
                                                 function (scoreOfClass) {
                                                     $scope.loading = false;
                                                     for (var k = 0; k < $scope.filesContent.length; k++)
@@ -63,6 +108,7 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                                                     $scope.filesContent.sort(sortFilesContentCompareMethod);
                                                     prettyPrint();
                                                 });
+                                        }
                                     });
                             }
                         });
