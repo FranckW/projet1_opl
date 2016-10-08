@@ -11,18 +11,17 @@ import spoon.reflect.declaration.CtClass;
  */
 public class ClassRanking {
 
-	private static Map<CtClass<?>, Integer> classRankingMap;
-	final static int INITIAL_POINTS = 5;
+	private Map<CtClass<?>, Integer> classRankingMap;
 
 	public ClassRanking() {
 		classRankingMap = new HashMap<CtClass<?>, Integer>();
 	}
 
-	public static void addClass(CtClass<?> classCt) {
-		classRankingMap.put(classCt, INITIAL_POINTS);
+	public void addClass(CtClass<?> classCt) {
+		this.classRankingMap.put(classCt, 0);
 	}
 
-	public static void addPoints(String className, int points) {
+	public void addPoints(String className, int points) {
 		for (CtClass<?> classCt : classRankingMap.keySet()) {
 
 			if (classCt.getSimpleName().toString().equals(className)) {
@@ -31,10 +30,11 @@ public class ClassRanking {
 		}
 	}
 
-	public static void addPoints(CtClass<?> classCt, int points) {
+	public void addPoints(CtClass<?> classCt, int points) {
 		classRankingMap.put(classCt, classRankingMap.get(classCt) + points);
 	}
 
+	
 	@Override
 	public String toString() {
 		StringBuilder ret = new StringBuilder();

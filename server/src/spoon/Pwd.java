@@ -13,7 +13,7 @@ public class Pwd {
 		String repoPath = Pwd.getPath() + "\\repository";
 		return repoPath;
 	}
-
+	
 	public static String getOutputPath() throws IOException {
 		String outputPath = Pwd.getPath() + "\\output";
 		return outputPath;

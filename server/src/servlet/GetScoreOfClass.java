@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import spoon.ClassProcessor;
+import spoon.RankingProcessor;
 import spoon.ClassRanking;
 import utils.CrossDomainHandler;
 
@@ -36,7 +36,7 @@ public class GetScoreOfClass extends HttpServlet {
 		String id = request.getParameter("id");
 		String className = request.getParameter("className");
 		PrintWriter out = response.getWriter();
-		ClassRanking rank = ClassProcessor.getRank();
+		ClassRanking rank = RankingProcessor.getRank();
 
 		JSONObject jo = new JSONObject();
 		jo.put("id", id);

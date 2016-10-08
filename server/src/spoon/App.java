@@ -13,17 +13,22 @@ public class App {
         launcher.addInputResource(repositoryPath);        
         launcher.setSourceOutputDirectory(outputDirectory);
         
-        launcher.addProcessor(new ClassProcessor());
+        RankingProcessor rankProcessor = new RankingProcessor();
+        
+        launcher.addProcessor(rankProcessor);
         launcher.run();
-    
+        
         
         System.out.println("Before analyse : ");
-        ClassRanking rank = ClassProcessor.getRank();
+        ClassRanking rank = rankProcessor.getRanking();
         System.out.println(rank.toString());
         
         System.out.println("After analyse : ");
-        ClassProcessor.analyse();
+        rankProcessor.analyse();
         System.out.println(rank.toString());
+        rankProcessor.analyse();
+        System.out.println(rank.toString());
+
 	
     }
     

@@ -1,3 +1,4 @@
+package Try;
 public class Maison {
 
 public String toString(){

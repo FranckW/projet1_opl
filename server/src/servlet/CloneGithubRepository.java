@@ -15,7 +15,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.json.simple.JSONObject;
 
-import spoon.ClassProcessor;
+import spoon.RankingProcessor;
 import spoon.ClassRanking;
 import spoon.Launcher;
 import spoon.Pwd;
@@ -54,24 +54,25 @@ public class CloneGithubRepository extends HttpServlet {
 			final String repositoryPath = outputDirectory.getAbsolutePath();
 			final String outputDir = Pwd.getOutputPath();
 
-			launcher.addInputResource(repositoryPath);
-			launcher.setSourceOutputDirectory(outputDir);
-
-			launcher.addProcessor(new ClassProcessor());
-			launcher.run();
-
-			System.out.println("Before analyse : ");
-			ClassRanking rank = ClassProcessor.getRank();
-			System.out.println(rank.toString());
-
-			System.out.println("After analyse : ");
-			ClassProcessor.analyse();
-			System.out.println(rank.toString());
-			JSONObject jo = new JSONObject();
-			jo.put("pullRequestNumber", pullRequestNumber);
-
-			out.write(jo.toJSONString());
-
+			launcher.addInputResource(repositoryPath);        
+	        launcher.setSourceOutputDirectory(outputDirectory);
+	        
+	        RankingProcessor rankProcessor = new RankingProcessor();
+	        
+	        launcher.addProcessor(rankProcessor);
+	        launcher.run();
+	        
+	        
+	        System.out.println("Before analyse : ");
+	        ClassRanking rank = rankProcessor.getRanking();
+	        System.out.println(rank.toString());
+	        
+	        System.out.println("After analyse : ");
+	        rankProcessor.analyse();
+	        System.out.println(rank.toString());
+	        rankProcessor.analyse();
+	        System.out.println(rank.toString());
+	        
 			out.flush();
 		} catch (GitAPIException e) {
 			e.printStackTrace();

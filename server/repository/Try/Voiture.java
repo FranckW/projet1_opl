@@ -1,3 +1,4 @@
+package Try;
 public class Voiture implements Drivable{
 	
 	public int prix;
