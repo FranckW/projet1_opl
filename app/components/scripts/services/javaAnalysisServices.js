@@ -20,12 +20,12 @@ angular.module('app').service(
             return (request.then(handleSuccess, handleError));
         }
 
-        function cloneRepo(repoName, pullRequestNumber) {
+        function cloneRepo(forkRepoName, pullRequestNumber) {
             var request = $http({
                 method: "get",
                 url: 'http://localhost:8080/server/cloneRepo',
                 params: {
-                    repoName: repoName,
+                    forkRepoName: forkRepoName,
                     pullRequestNumber: pullRequestNumber
                 }
             });

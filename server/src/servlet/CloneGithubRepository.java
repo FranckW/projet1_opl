@@ -39,15 +39,14 @@ public class CloneGithubRepository extends HttpServlet {
 	public void doRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		CrossDomainHandler.handle(request, response, getServletContext());
 
-		String repoName = request.getParameter("repoName");
+		String forkRepoName = request.getParameter("forkRepoName");
 		String pullRequestNumber = request.getParameter("pullRequestNumber");
 		PrintWriter out = response.getWriter();
 		try {
 			File outputDirectory = new File(
-					(new File("../").getAbsolutePath()) + "\\" + repoName + (new Random().nextInt(50000)));
-			deleteDir(outputDirectory);
+					(new File("../").getAbsolutePath()) + "\\" + forkRepoName + (new Random().nextInt(50000)));
 			System.out.println("Before clone");
-			Git.cloneRepository().setURI("https://github.com/" + repoName + ".git").setDirectory(outputDirectory)
+			Git.cloneRepository().setURI("https://github.com/" + forkRepoName + ".git").setDirectory(outputDirectory)
 					.call();
 			System.out.println("After clone");
 			final Launcher launcher = new Launcher();
@@ -69,6 +68,7 @@ public class CloneGithubRepository extends HttpServlet {
 			System.out.println(rank.toString());
 			JSONObject jo = new JSONObject();
 			jo.put("pullRequestNumber", pullRequestNumber);
+			jo.put("repoName", forkRepoName);
 
 			out.write(jo.toJSONString());
 
@@ -76,14 +76,6 @@ public class CloneGithubRepository extends HttpServlet {
 		} catch (GitAPIException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void deleteDir(File file) {
-		File[] contents = file.listFiles();
-		if (contents != null)
-			for (File f : contents)
-				deleteDir(f);
-		file.delete();
 	}
 
 }
