@@ -20,6 +20,7 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
             var forkRepoUrl = $scope.pullRequests[i].head.repo.clone_url;
             var githubUrl = 'https://github.com/';
             var forkRepoName = forkRepoUrl.substring(githubUrl.length, forkRepoUrl.length - 4);
+            // we map the fork repos with their pull request number to be accessed later even if it is asynchronous 
             $scope.forkRepos[$scope.pullRequests[i].number] = forkRepoUrl.substring(0, forkRepoUrl.length - 4);
             cloneRepo(forkRepoName, i);
         }
@@ -31,7 +32,6 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                 githubServices.getContentOfPullRequest($scope.repoName, data.pullRequestNumber).then(
                     function (filesContentData) {
                         for (var j = $scope.currentIndex; j < $scope.currentIndex + filesContentData.length; j++) {
-                            console.log("j = " + j);
                             $scope.files[j] = filesContentData[j - $scope.currentIndex];
                             var urlStart = 'https://raw.githubusercontent.com/' + $scope.repoName;
                             var indexOfRaw = $scope.files[j].raw_url.indexOf('/raw');
@@ -39,33 +39,35 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
                             $scope.loading = true;
                             getContentFile(urlGithubContent, j, data.pullRequestNumber);
                         }
+                        // we need to increase the current index to add files without overwriting files handled
+                        // in another loop since it is asynchronous 
                         $scope.currentIndex += filesContentData.length;
                     });
             });
     }
 
-    function getContentFile(urlGithubContent, j, pullRequestNumber) {
+    function getContentFile(urlGithubContent, index, pullRequestNumber) {
         githubServices.getFileContent(urlGithubContent).then(
             function (fileContentData) {
                 var score = 1;
-                if ($scope.files[j].status == 'added' || $scope.files[j].status == 'removed')
+                if ($scope.files[index].status == 'added' || $scope.files[index].status == 'removed')
                     var content = fileContentData;
                 else {
-                    var content = $scope.files[j].patch;
+                    var content = $scope.files[index].patch;
                     content = replaceAddAndRemove(content);
                     content = $sce.trustAsHtml(linesAsString(content));
                 }
                 var fileInfos = {
-                    "id": $scope.files[j].sha,
-                    "filename": $scope.files[j].filename,
+                    "id": $scope.files[index].sha,
+                    "filename": $scope.files[index].filename,
                     "content": content,
                     "score": 1,
                     "forkRepo": $scope.forkRepos[pullRequestNumber],
-                    "status": $scope.files[j].status,
+                    "status": $scope.files[index].status,
                     "pullRequestNumber": pullRequestNumber,
                 };
-                $scope.filesContent[j] = fileInfos;
-                var file = $scope.filesContent[j];
+                $scope.filesContent[index] = fileInfos;
+                var file = $scope.filesContent[index];
                 scoreTheFile(file);
             });
     }

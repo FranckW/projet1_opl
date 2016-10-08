@@ -9,7 +9,6 @@
                     <hr>
                     <p>File name : {{fileContent.filename}}</p>
                     <p>Pull request from : <a href="{{fileContent.forkRepo}}" target="_blank">{{fileContent.forkRepo}}</a></p>
-                    <p>File id : {{fileContent.id}}</p>
                     <p>File score : {{fileContent.score}}</p>
                     <pre class="prettyprint" ng-class="styleClass(fileContent)" ng-show="{{fileContent.status == 'added'}} || {{fileContent.status == 'removed'}}"><code class="language-java">{{fileContent.content}}</code></pre>
                     <pre class="prettyprint" ng-show="{{fileContent.status == 'modified'}}"><code class="language-java"><div ng-bind-html="fileContent.content"></div></code></pre>
