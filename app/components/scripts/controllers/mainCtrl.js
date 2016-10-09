@@ -113,7 +113,7 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
             indices.push(index);
             startIndex = index + searchStrLen;
         }
-        lines = difflib.stringAsLines(fileContent);
+        lines = stringAsLines(fileContent);
         for (var i = 0; i < lines.length; i++) {
             if (lines[i].startsWith('-')) {
                 lines[i] = '<span class="classStyleLineRemoved">' + lines[i] + '</span>';
@@ -124,6 +124,21 @@ angular.module('app').controller('MainCtrl', function ($scope, $rootScope, githu
         }
         return lines;
     };
+
+
+    function stringAsLines(str) {
+        var lfpos = str.indexOf("\n");
+        var crpos = str.indexOf("\r");
+        var linebreak = ((lfpos > -1 && crpos > -1) || crpos < 0) ? "\n" : "\r";
+        var lines = str.split(linebreak);
+        for (var i = 0; i < lines.length; i++)
+            lines[i] = stripLinebreaks(lines[i]);
+        return lines;
+    }
+
+    function stripLinebreaks(str) {
+        return str.replace(/^[\n\r]*|[\n\r]*$/g, "");
+    }
 
     function linesAsString(lines) {
         var str = '';
