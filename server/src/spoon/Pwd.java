@@ -10,14 +10,8 @@ public class Pwd {
 	}
 	
 	public static String getRepositoryPath() throws IOException {
-		String repoPath = Pwd.getPath() + "\\repository";
-		return repoPath;
+		return getChoosenPath("\\repository");
 	}
-
-	public static String getOutputPath() throws IOException {
-		String outputPath = Pwd.getPath() + "\\output";
-		return outputPath;
-	} 
 	
 	public static String getChoosenPath(String path) throws IOException{
 		String choosedPath = Pwd.getPath() + "\\" + path;

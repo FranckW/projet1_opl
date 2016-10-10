@@ -11,7 +11,7 @@ public class App {
 
     	long debut = System.currentTimeMillis();
         final Launcher launcher = new Launcher();
-        final String repositoryPath = Pwd.getRepositoryPath();
+        final String repositoryPath = Pwd.getRepositoryPath(); 
 
         final List<String> arguments = new LinkedList<String>();
         arguments.add("-i");
@@ -36,7 +36,6 @@ public class App {
         System.out.println("After analyse : ");
         ClassProcessor.analyse();
         System.out.println(rank.toString());
-
         System.out.println(System.currentTimeMillis() - debut + "ms");
     }
 
