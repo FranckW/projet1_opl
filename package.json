@@ -1,5 +1,5 @@
 {
-    "name": "colorApp",
+    "name": "app",
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
@@ -33,7 +33,7 @@
     "node": ">=0.10.0"
   },
     "scripts": {
-        "start": "node app\/index.html",
+        "start": "app\/index.html",
     "test": "grunt test"
   }
 }
