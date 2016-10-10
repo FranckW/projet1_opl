@@ -1,6 +1,7 @@
-Pull Requests Analyzer est un projet visant à améliorer la lecture d'une pull request sur github lorsque l'on se place du côté de l'intégrateur. 
+Voir Rapport_OPL.pdf pour le détail de notre travail.
 
-Le but est de rendre plus claires les modifications importantes qui sont dans la pull request et ainsi faire gagner du temps à l'intégrateur. 
-Dans le premier jet, il s'agira d'effectuer cette amélioration uniquement lorsqu'il s'agit de code Java commité. Une extension à tous les langages est possible, mais n'est pas prévu à court terme.
+Pour exécuter notre application : 
 
-L'application sera testée sur un gros projet open source sur lequel nous modifieront des classes sensibles et d'autres non. Ceci mettra en avant notre hiérarchisation de classes et méthodes modifiées.  
+- Lancer le serveur tomcat depuis Eclipse (juste Start le serveur tomcat inclu dans le repository)
+- Lancer grunt serve à la racine du projet pour lancer l'application web
+

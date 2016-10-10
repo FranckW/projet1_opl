@@ -16,7 +16,6 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.json.simple.JSONObject;
 
 import spoon.ClassProcessor;
-import spoon.ClassRanking;
 import spoon.Launcher;
 import spoon.Pwd;
 import utils.CrossDomainHandler;
@@ -45,10 +44,8 @@ public class CloneGithubRepository extends HttpServlet {
 		try {
 			File outputDirectory = new File(
 					(new File("../").getAbsolutePath()) + "\\" + forkRepoName + (new Random().nextInt(50000)));
-			System.out.println("Before clone");
 			Git.cloneRepository().setURI("https://github.com/" + forkRepoName + ".git").setDirectory(outputDirectory)
 					.call();
-			System.out.println("After clone");
 			final Launcher launcher = new Launcher();
 			final String repositoryPath = outputDirectory.getAbsolutePath();
 			final String outputDir = Pwd.getOutputPath();
@@ -59,13 +56,7 @@ public class CloneGithubRepository extends HttpServlet {
 			launcher.addProcessor(new ClassProcessor());
 			launcher.run();
 
-			System.out.println("Before analyse : ");
-			ClassRanking rank = ClassProcessor.getRank();
-			System.out.println(rank.toString());
-
-			System.out.println("After analyse : ");
 			ClassProcessor.analyse();
-			System.out.println(rank.toString());
 			JSONObject jo = new JSONObject();
 			jo.put("pullRequestNumber", pullRequestNumber);
 			jo.put("repoName", forkRepoName);

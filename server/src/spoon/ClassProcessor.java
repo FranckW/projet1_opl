@@ -30,10 +30,6 @@ public class ClassProcessor extends AbstractProcessor<CtClass<?>> {
 	@Override
 	public void process(CtClass<?> arg0) {
 		classList.add(arg0);
-		Set<CtMethod<?>> methods = arg0.getMethods();
-		for (CtMethod<?> ctmethod : methods) {
-			System.out.println("test : " + ctmethod.getSimpleName());
-		}
 	}
 
 	public static void analyse() {
